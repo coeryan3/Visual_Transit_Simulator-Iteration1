@@ -17,10 +17,16 @@ public class BusTest {
   /**
    * Setup operations before each test runs.
    */
+  /*
   @BeforeEach
   public void setUp() {
 
   }
+  @AfterEach
+  public void tearDown() {
+
+  }
+   */
 
   /**
    * Create a bus with outgoing and incoming routes and three stops per route.
@@ -77,70 +83,55 @@ public class BusTest {
    */
   @Test
   public void testReport() {
-
+    ByteArrayOutputStream capturedOutput = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(capturedOutput);
+    Bus bus = createBus();
+    String expectedOutput = "####Bus Info Start####\n" +
+                            "Name: testBus\n" +
+                            "Speed: 1\n" +
+                            "Distance to next stop: 0\n" +
+                            "****Passengers Info Start****\n" +
+                            "Num of passengers: 0\n" +
+                            "****Passengers Info End****\n" +
+                            "####Bus Info Start####\n";
+    bus.report(out);
+    assertEquals(expectedOutput, capturedOutput.toString());
   }
+
   /**
    * Testing isTripComplete method.
    */
   @Test
   public void testIsTripComplete() {
-
+    Bus bus = createBus();
+    assertFalse(bus.testIsTripComplete());
   }
   /**
    * Testing loadPassenger method.
    */
   @Test
   public void testLoadPassenger() {
-
+    Bus bus = createBus();
+    assertEquals(0, bus.getNumPassengers());
+    Passenger testPassenger = new Passenger(1, "testPassenger");
+    bus.loadPassenger(testPassenger);
+    assertEquals(1, bus.getNumPassengers());
   }
   /**
    * Testing move method.
    */
   @Test
   public void testMove() {
-
+    Bus bus = createBus();
+    assertTrue(bus.move());
   }
   /**
    * Testing update method.
    */
   @Test
   public void testUpdate() {
-
-  }
-  /**
-   * Testing _ method.
-   */
-  @Test
-  public void test_() {
-
-  }
-  /**
-   * Testing _ method.
-   */
-  @Test
-  public void test_() {
-
-  }
-  /**
-   * Testing _ method.
-   */
-  @Test
-  public void test_() {
-
-  }
-  /**
-   * Testing _ method.
-   */
-  @Test
-  public void test_() {
-
-  }
-  /**
-   * Testing _ method.
-   */
-  @Test
-  public void test_() {
-
+    Bus bus = createBus();
+    bus.update();
   }
 
 }
