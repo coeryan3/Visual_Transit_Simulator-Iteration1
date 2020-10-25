@@ -190,7 +190,7 @@ function setup() {
 }
 
 function draw() {
-    if (started && connected) {
+    if (started && connected && !paused) {
         update();
     }
     render();
