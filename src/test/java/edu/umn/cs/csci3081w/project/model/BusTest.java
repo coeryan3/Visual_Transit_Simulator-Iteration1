@@ -1,6 +1,8 @@
 package edu.umn.cs.csci3081w.project.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
@@ -14,9 +16,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class BusTest {
-  /**
-   * Setup operations before each test runs.
-   */
+  //**
+  // * Setup operations before each test runs.
+  // */
   /*
   @BeforeEach
   public void setUp() {
@@ -60,7 +62,7 @@ public class BusTest {
     probabilitiesOut.add(0.3);
     probabilitiesOut.add(.15);
     PassengerGenerator generatorOut = new RandomPassengerGenerator(probabilitiesOut, stopsOut);
-    Route testRouteOut = new Route("testRouteIn", stopsOut, distancesOut, 3, generatorOut);
+    Route testRouteOut = new Route("testRouteOut", stopsOut, distancesOut, 3, generatorOut);
     return new Bus("TestBus", testRouteOut, testRouteIn, 5, 1);
   }
 
@@ -69,13 +71,11 @@ public class BusTest {
    */
   @Test
   public void testConstructorNormal() {
-    Route out = new Route("Test", null, null, 0, null);
-    Route in = new Route("Test", null, null, 0, null);
-    Bus bus = new Bus("test", out, in, 1, 1);
-    assertEquals("test", bus.getName());
-    assertEquals(out, bus.getOutgoingRoute());
-    assertEquals(in, bus.getIncomingRoute());
-    assertEquals(1, bus.getCapacity());
+    Bus bus = createBus();
+    assertEquals("TestBus", bus.getName());
+    assertEquals("testRouteOut", bus.getOutgoingRoute().getName());
+    assertEquals("testRouteIn", bus.getIncomingRoute().getName());
+    assertEquals(5, bus.getCapacity());
   }
 
   /**
@@ -86,14 +86,14 @@ public class BusTest {
     ByteArrayOutputStream capturedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(capturedOutput);
     Bus bus = createBus();
-    String expectedOutput = "####Bus Info Start####\n" +
-                            "Name: testBus\n" +
-                            "Speed: 1\n" +
-                            "Distance to next stop: 0\n" +
-                            "****Passengers Info Start****\n" +
-                            "Num of passengers: 0\n" +
-                            "****Passengers Info End****\n" +
-                            "####Bus Info Start####\n";
+    String expectedOutput = "####Bus Info Start####\n"
+                            + "Name: TestBus\n"
+                            + "Speed: 1.0\n"
+                            + "Distance to next stop: 0.0\n"
+                            + "****Passengers Info Start****\n"
+                            + "Num of passengers: 0\n"
+                            + "****Passengers Info End****\n"
+                            + "####Bus Info Start####\n";
     bus.report(out);
     assertEquals(expectedOutput, capturedOutput.toString());
   }
@@ -104,8 +104,9 @@ public class BusTest {
   @Test
   public void testIsTripComplete() {
     Bus bus = createBus();
-    assertFalse(bus.testIsTripComplete());
+    assertFalse(bus.isTripComplete());
   }
+
   /**
    * Testing loadPassenger method.
    */
@@ -117,6 +118,7 @@ public class BusTest {
     bus.loadPassenger(testPassenger);
     assertEquals(1, bus.getNumPassengers());
   }
+
   /**
    * Testing move method.
    */
@@ -125,6 +127,7 @@ public class BusTest {
     Bus bus = createBus();
     assertTrue(bus.move());
   }
+
   /**
    * Testing update method.
    */
