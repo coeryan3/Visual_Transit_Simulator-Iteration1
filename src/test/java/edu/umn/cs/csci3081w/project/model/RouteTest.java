@@ -119,16 +119,16 @@ public class RouteTest {
   public void testNextStop() {
     assertEquals(0, testRoute.getDestinationStopIndex());
     assertEquals(stops.get(0), testRoute.getDestinationStop());
-    testRoute.nextStop();
+    testRoute.toNextStop();
     assertEquals(1, testRoute.getDestinationStopIndex());
     assertEquals(stops.get(1), testRoute.getDestinationStop());
-    testRoute.nextStop();
+    testRoute.toNextStop();
     assertEquals(2, testRoute.getDestinationStopIndex());
     assertEquals(stops.get(2), testRoute.getDestinationStop());
-    testRoute.nextStop();
+    testRoute.toNextStop();
     assertEquals(3, testRoute.getDestinationStopIndex());
     assertEquals(stops.get(2), testRoute.getDestinationStop());
-    testRoute.nextStop();
+    testRoute.toNextStop();
     assertEquals(4, testRoute.getDestinationStopIndex());
     assertEquals(stops.get(2), testRoute.getDestinationStop());
   }
@@ -142,13 +142,13 @@ public class RouteTest {
   @Test
   public void testPrevStop() {
     assertEquals(stops.get(0), testRoute.prevStop());
-    testRoute.nextStop();
+    testRoute.toNextStop();
     assertEquals(stops.get(0), testRoute.prevStop());
-    testRoute.nextStop();
+    testRoute.toNextStop();
     assertEquals(stops.get(1), testRoute.prevStop());
-    testRoute.nextStop();
+    testRoute.toNextStop();
     assertEquals(stops.get(2), testRoute.prevStop());
-    testRoute.nextStop();
+    testRoute.toNextStop();
     assertEquals(stops.get(2), testRoute.prevStop());
   }
 
@@ -158,13 +158,13 @@ public class RouteTest {
   @Test
   public void testIsAtEnd() {
     assertEquals(false, testRoute.isAtEnd());
-    testRoute.nextStop();
+    testRoute.toNextStop();
     assertEquals(false, testRoute.isAtEnd());
-    testRoute.nextStop();
+    testRoute.toNextStop();
     assertEquals(false, testRoute.isAtEnd());
-    testRoute.nextStop();
+    testRoute.toNextStop();
     assertEquals(true, testRoute.isAtEnd());
-    testRoute.nextStop();
+    testRoute.toNextStop();
   }
 
   /**
@@ -227,8 +227,8 @@ public class RouteTest {
    */
   @Test
   public void testRouteReportSecondStop() {
-    testRoute.nextStop();
-    testRoute.nextStop();
+    testRoute.toNextStop();
+    testRoute.toNextStop();
     try {
       final Charset charset = StandardCharsets.UTF_8;
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -276,9 +276,9 @@ public class RouteTest {
    */
   @Test
   public void testRouteReportEnd() {
-    testRoute.nextStop();
-    testRoute.nextStop();
-    testRoute.nextStop();
+    testRoute.toNextStop();
+    testRoute.toNextStop();
+    testRoute.toNextStop();
     try {
       final Charset charset = StandardCharsets.UTF_8;
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
