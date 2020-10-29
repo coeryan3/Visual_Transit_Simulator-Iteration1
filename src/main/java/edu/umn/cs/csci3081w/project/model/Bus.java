@@ -188,7 +188,7 @@ public class Bus {
 
   private void toNextStop() {
     //current stop
-    currentRoute().nextStop();
+    currentRoute().toNextStop();
     if (!isTripComplete()) {
       // it's important we call currentRoute() again,
       // as nextStop() may have caused it to change.

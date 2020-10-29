@@ -144,7 +144,7 @@ public class Route {
   /**
    * Updates destinationStop to next stop.
    */
-  public void nextStop() {
+  public void toNextStop() {
     destinationStopIndex++;
     if (destinationStopIndex < numStops) {
       destinationStop = stops.get(destinationStopIndex);
