@@ -165,5 +165,155 @@ public class RouteTest {
     testRoute.nextStop();
   }
 
+  @Test
+  public void testTotalRouteDistance() {
+    assertEquals(0.017415, testRoute.getTotalRouteDistance());
+  }
 
+  @Test
+  public void testRouteReportStart() {
+    try {
+      final Charset charset = StandardCharsets.UTF_8;
+      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+      PrintStream testStream = new PrintStream(outputStream, true, charset.name());
+      testRoute.report(testStream);
+      outputStream.flush();
+      String data = new String(outputStream.toByteArray(), charset);
+      testStream.close();
+      outputStream.close();
+      String strToCompare =
+          "####Route Info Start####" + System.lineSeparator()
+              + "Name: testRoute" + System.lineSeparator()
+              + "Num stops: 3" + System.lineSeparator()
+              + "****Stops Info Start****" + System.lineSeparator()
+              + "++++Next Stop Info Start++++" + System.lineSeparator()
+              + "####Stop Info Start####" + System.lineSeparator()
+              + "ID: 0" + System.lineSeparator()
+              + "****Passengers Info Start****" + System.lineSeparator()
+              + "Num passengers waiting: 0" + System.lineSeparator()
+              + "****Passengers Info End****" + System.lineSeparator()
+              + "####Stop Info End####" + System.lineSeparator()
+              + "++++Next Stop Info End++++" + System.lineSeparator()
+              + "####Stop Info Start####" + System.lineSeparator()
+              + "ID: 1" + System.lineSeparator()
+              + "****Passengers Info Start****" + System.lineSeparator()
+              + "Num passengers waiting: 0" + System.lineSeparator()
+              + "****Passengers Info End****" + System.lineSeparator()
+              + "####Stop Info End####" + System.lineSeparator()
+              + "####Stop Info Start####" + System.lineSeparator()
+              + "ID: 2" + System.lineSeparator()
+              + "****Passengers Info Start****" + System.lineSeparator()
+              + "Num passengers waiting: 0" + System.lineSeparator()
+              + "****Passengers Info End****" + System.lineSeparator()
+              + "####Stop Info End####" + System.lineSeparator()
+              + "****Stops Info End****" + System.lineSeparator()
+              + "####Route Info End####" + System.lineSeparator();
+      assertEquals(data, strToCompare);
+    } catch (IOException ioe) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testRouteReportSecondStop() {
+    testRoute.nextStop();
+    testRoute.nextStop();
+    try {
+      final Charset charset = StandardCharsets.UTF_8;
+      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+      PrintStream testStream = new PrintStream(outputStream, true, charset.name());
+      testRoute.report(testStream);
+      outputStream.flush();
+      String data = new String(outputStream.toByteArray(), charset);
+      testStream.close();
+      outputStream.close();
+      String strToCompare =
+          "####Route Info Start####" + System.lineSeparator()
+              + "Name: testRoute" + System.lineSeparator()
+              + "Num stops: 3" + System.lineSeparator()
+              + "****Stops Info Start****" + System.lineSeparator()
+              + "####Stop Info Start####" + System.lineSeparator()
+              + "ID: 0" + System.lineSeparator()
+              + "****Passengers Info Start****" + System.lineSeparator()
+              + "Num passengers waiting: 0" + System.lineSeparator()
+              + "****Passengers Info End****" + System.lineSeparator()
+              + "####Stop Info End####" + System.lineSeparator()
+              + "####Stop Info Start####" + System.lineSeparator()
+              + "ID: 1" + System.lineSeparator()
+              + "****Passengers Info Start****" + System.lineSeparator()
+              + "Num passengers waiting: 0" + System.lineSeparator()
+              + "****Passengers Info End****" + System.lineSeparator()
+              + "####Stop Info End####" + System.lineSeparator()
+              + "++++Next Stop Info Start++++" + System.lineSeparator()
+              + "####Stop Info Start####" + System.lineSeparator()
+              + "ID: 2" + System.lineSeparator()
+              + "****Passengers Info Start****" + System.lineSeparator()
+              + "Num passengers waiting: 0" + System.lineSeparator()
+              + "****Passengers Info End****" + System.lineSeparator()
+              + "####Stop Info End####" + System.lineSeparator()
+              + "++++Next Stop Info End++++" + System.lineSeparator()
+              + "****Stops Info End****" + System.lineSeparator()
+              + "####Route Info End####" + System.lineSeparator();
+      assertEquals(data, strToCompare);
+    } catch (IOException ioe) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testRouteReportEnd() {
+    testRoute.nextStop();
+    testRoute.nextStop();
+    testRoute.nextStop();
+    try {
+      final Charset charset = StandardCharsets.UTF_8;
+      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+      PrintStream testStream = new PrintStream(outputStream, true, charset.name());
+      testRoute.report(testStream);
+      outputStream.flush();
+      String data = new String(outputStream.toByteArray(), charset);
+      testStream.close();
+      outputStream.close();
+      String strToCompare =
+          "####Route Info Start####" + System.lineSeparator()
+              + "Name: testRoute" + System.lineSeparator()
+              + "Num stops: 3" + System.lineSeparator()
+              + "****Stops Info Start****" + System.lineSeparator()
+              + "####Stop Info Start####" + System.lineSeparator()
+              + "ID: 0" + System.lineSeparator()
+              + "****Passengers Info Start****" + System.lineSeparator()
+              + "Num passengers waiting: 0" + System.lineSeparator()
+              + "****Passengers Info End****" + System.lineSeparator()
+              + "####Stop Info End####" + System.lineSeparator()
+              + "####Stop Info Start####" + System.lineSeparator()
+              + "ID: 1" + System.lineSeparator()
+              + "****Passengers Info Start****" + System.lineSeparator()
+              + "Num passengers waiting: 0" + System.lineSeparator()
+              + "****Passengers Info End****" + System.lineSeparator()
+              + "####Stop Info End####" + System.lineSeparator()
+              + "####Stop Info Start####" + System.lineSeparator()
+              + "ID: 2" + System.lineSeparator()
+              + "****Passengers Info Start****" + System.lineSeparator()
+              + "Num passengers waiting: 0" + System.lineSeparator()
+              + "****Passengers Info End****" + System.lineSeparator()
+              + "####Stop Info End####" + System.lineSeparator()
+              + "****Stops Info End****" + System.lineSeparator()
+              + "####Route Info End####" + System.lineSeparator();
+      assertEquals(data, strToCompare);
+    } catch (IOException ioe) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testRouteUpdate() {
+    assertEquals(0, testRoute.getRouteData().getStops().size());
+    assertEquals("", testRoute.getRouteData().getId());
+    testRoute.update();
+    assertEquals(3, testRoute.getRouteData().getStops().size());
+    assertEquals("testRoute",testRoute.getRouteData().getId());
+    assertEquals(String.valueOf(0), testRoute.getRouteData().getStops().get(0).getId());
+    assertEquals(String.valueOf(1), testRoute.getRouteData().getStops().get(1).getId());
+    assertEquals(String.valueOf(2), testRoute.getRouteData().getStops().get(2).getId());
+  }
 }
