@@ -92,6 +92,8 @@ public class RouteTest {
     for (int i = 0; i < stops.size(); i++) {
       assertEquals(stops.get(i), testRoute.getStops().get(i));
     }
+    assertEquals(0, testRoute.getRouteData().getStops().size());
+    assertEquals("", testRoute.getRouteData().getId());
   }
 
   /**
@@ -165,11 +167,17 @@ public class RouteTest {
     testRoute.nextStop();
   }
 
+  /**
+   * Tests if the total route distance is properly computed.
+   */
   @Test
   public void testTotalRouteDistance() {
     assertEquals(0.017415, testRoute.getTotalRouteDistance());
   }
 
+  /**
+   * Tests the report output when route has just been constructed.
+   */
   @Test
   public void testRouteReportStart() {
     try {
@@ -214,6 +222,9 @@ public class RouteTest {
     }
   }
 
+  /**
+   * Tests the report output when the route is in process, at the second stop.
+   */
   @Test
   public void testRouteReportSecondStop() {
     testRoute.nextStop();
@@ -260,6 +271,9 @@ public class RouteTest {
     }
   }
 
+  /**
+   * Tests report output after route has reached the final stop along the route.
+   */
   @Test
   public void testRouteReportEnd() {
     testRoute.nextStop();
@@ -305,10 +319,11 @@ public class RouteTest {
     }
   }
 
+  /**
+   * Tests that route data is accurately updated after the update function is called once.
+   */
   @Test
   public void testRouteUpdate() {
-    assertEquals(0, testRoute.getRouteData().getStops().size());
-    assertEquals("", testRoute.getRouteData().getId());
     testRoute.update();
     assertEquals(3, testRoute.getRouteData().getStops().size());
     assertEquals("testRoute",testRoute.getRouteData().getId());
