@@ -208,6 +208,9 @@ function update() {
     if (elapsedTime > updateTime && totalUpdates < numTimeSteps) {
         socket.send(JSON.stringify({command: "update"}));
         startTime = millis();
+        if(paused){
+            totalUpdates--;
+        }
         totalUpdates++;
     }
 }
