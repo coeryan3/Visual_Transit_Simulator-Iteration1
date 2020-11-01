@@ -4,6 +4,7 @@ import edu.umn.cs.csci3081w.project.model.Bus;
 import edu.umn.cs.csci3081w.project.model.Route;
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Math;
 
 public class VisualizationSimulator {
 
@@ -65,7 +66,8 @@ public class VisualizationSimulator {
       if (timeSinceLastBus.get(i) <= 0) {
         Route outbound = prototypeRoutes.get(2 * i);
         Route inbound = prototypeRoutes.get(2 * i + 1);
-        busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(), inbound.shallowCopy(), 60,
+        int busSize = (int)((Math.random() * 2) + 1) * 30;
+        busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(), inbound.shallowCopy(), busSize,
             1));
         busId++;
         timeSinceLastBus.set(i, busStartTimings.get(i));
