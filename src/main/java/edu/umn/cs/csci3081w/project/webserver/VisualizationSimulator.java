@@ -2,8 +2,10 @@ package edu.umn.cs.csci3081w.project.webserver;
 
 import edu.umn.cs.csci3081w.project.model.Bus;
 import edu.umn.cs.csci3081w.project.model.Route;
+import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class VisualizationSimulator {
 
@@ -67,8 +69,9 @@ public class VisualizationSimulator {
         if (timeSinceLastBus.get(i) <= 0) {
           Route outbound = prototypeRoutes.get(2 * i);
           Route inbound = prototypeRoutes.get(2 * i + 1);
-          busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(), inbound.shallowCopy(), 60,
-                  1));
+          int busSize = (int) ((Math.random() * 2) + 1) * 30;
+          busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(), inbound.shallowCopy(),
+                  busSize, 1));
           busId++;
           timeSinceLastBus.set(i, busStartTimings.get(i));
           timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
@@ -77,38 +80,33 @@ public class VisualizationSimulator {
         }
       }
       // Update busses
-      for (int i = busses.size() - 1; i >= 0; i--) {
-        busses.get(i).update();
-        if (busses.get(i).isTripComplete()) {
-          webInterface.updateBus(busses.get(i).getBusData(), true);
-          busses.remove(i);
-          continue;
+       for (int i = busses.size() - 1; i >= 0; i--) {
+         busses.get(i).update();
+         if (busses.get(i).isTripComplete()) {
+           webInterface.updateBus(busses.get(i).getBusData(), true);
+           busses.remove(i);
+           continue;
+         }
+         webInterface.updateBus(busses.get(i).getBusData(), false);
+         busses.get(i).report(System.out);
+       }
+       // Update routes
+       for (int i = 0; i < prototypeRoutes.size(); i++) {
+          prototypeRoutes.get(i).update();
+          webInterface.updateRoute(prototypeRoutes.get(i).getRouteData(), false);
+          prototypeRoutes.get(i).report(System.out);
         }
-        webInterface.updateBus(busses.get(i).getBusData(), false);
-        busses.get(i).report(System.out);
-      }
-      // Update routes
-      for (int i = 0; i < prototypeRoutes.size(); i++) {
-        prototypeRoutes.get(i).update();
-        webInterface.updateRoute(prototypeRoutes.get(i).getRouteData(), false);
-        prototypeRoutes.get(i).report(System.out);
-      }
     }
   }
 
   /**
-   * Pauses the simulation from running.
+  * Pauses or resumes the simulation from running.
    *
    *
    */
-   public void pause() {
-     simulationRunning = false;
-   }
-
-  /**
-   * Resumes the simulation after being paused.
-   */
-   public void resume() {
-     simulationRunning = true;
-   }
+  public void pause(){
+    if(simulationRunning)
+      simulationRunning = false;
+    else simulationRunning = true;
+  }
 }
