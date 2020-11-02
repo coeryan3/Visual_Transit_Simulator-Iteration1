@@ -1,6 +1,8 @@
 package edu.umn.cs.csci3081w.project.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
@@ -161,13 +163,13 @@ public class RouteTest {
    */
   @Test
   public void testIsAtEnd() {
-    assertEquals(false, testRoute.isAtEnd());
+    assertFalse(testRoute.isAtEnd());
     testRoute.toNextStop();
-    assertEquals(false, testRoute.isAtEnd());
+    assertFalse(testRoute.isAtEnd());
     testRoute.toNextStop();
-    assertEquals(false, testRoute.isAtEnd());
+    assertFalse(testRoute.isAtEnd());
     testRoute.toNextStop();
-    assertEquals(true, testRoute.isAtEnd());
+    assertTrue(testRoute.isAtEnd());
     testRoute.toNextStop();
   }
 

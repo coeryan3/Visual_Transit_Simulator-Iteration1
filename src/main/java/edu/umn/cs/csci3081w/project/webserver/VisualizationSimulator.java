@@ -22,7 +22,8 @@ public class VisualizationSimulator {
 
   /**
    * Constructor for Simulation.
-   * @param webI MWS object
+   *
+   * @param webI    MWS object
    * @param configM config object
    */
   public VisualizationSimulator(MyWebServer webI, ConfigManager configM) {
@@ -37,14 +38,15 @@ public class VisualizationSimulator {
 
   /**
    * Starts the simulation.
+   *
    * @param busStartTimingsParam start timings of bus
-   * @param numTimeStepsParam number of time steps
+   * @param numTimeStepsParam    number of time steps
    */
   public void start(List<Integer> busStartTimingsParam, int numTimeStepsParam) {
     this.busStartTimings = busStartTimingsParam;
     this.numTimeSteps = numTimeStepsParam;
     for (int i = 0; i < busStartTimings.size(); i++) {
-      this.timeSinceLastBus.add(i,  0);
+      this.timeSinceLastBus.add(i, 0);
     }
     simulationTimeElapsed = 0;
     prototypeRoutes = configManager.getRoutes();
@@ -59,7 +61,7 @@ public class VisualizationSimulator {
    * Updates the simulation at each step.
    */
   public void update() {
-    if(simulationRunning) {
+    if (simulationRunning) {
       simulationTimeElapsed++;
       System.out.println("~~~~The simulation time is now at time step "
           + simulationTimeElapsed + "~~~~");
@@ -79,34 +81,34 @@ public class VisualizationSimulator {
           timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
         }
       }
-        // Update busses
-        for (int i = busses.size() - 1; i >= 0; i--) {
-          busses.get(i).update();
-          if (busses.get(i).isTripComplete()) {
-            webInterface.updateBus(busses.get(i).getBusData(), true);
-            busses.remove(i);
-            continue;
-          }
-          webInterface.updateBus(busses.get(i).getBusData(), false);
-          busses.get(i).report(System.out);
+      // Update busses
+      for (int i = busses.size() - 1; i >= 0; i--) {
+        busses.get(i).update();
+        if (busses.get(i).isTripComplete()) {
+          webInterface.updateBus(busses.get(i).getBusData(), true);
+          busses.remove(i);
+          continue;
         }
-        // Update routes
-        for (int i = 0; i < prototypeRoutes.size(); i++) {
-          prototypeRoutes.get(i).update();
-          webInterface.updateRoute(prototypeRoutes.get(i).getRouteData(), false);
-          prototypeRoutes.get(i).report(System.out);
-        }
+        webInterface.updateBus(busses.get(i).getBusData(), false);
+        busses.get(i).report(System.out);
+      }
+      // Update routes
+      for (int i = 0; i < prototypeRoutes.size(); i++) {
+        prototypeRoutes.get(i).update();
+        webInterface.updateRoute(prototypeRoutes.get(i).getRouteData(), false);
+        prototypeRoutes.get(i).report(System.out);
+      }
     }
   }
 
   /**
-  * Pauses or resumes the simulation from running.
-   *
-   *
+   * Pauses or resumes the simulation from running.
    */
-  public void pause(){
-    if(simulationRunning)
+  public void pause() {
+    if (simulationRunning) {
       simulationRunning = false;
-    else simulationRunning = true;
+    } else {
+      simulationRunning = true;
+    }
   }
 }
