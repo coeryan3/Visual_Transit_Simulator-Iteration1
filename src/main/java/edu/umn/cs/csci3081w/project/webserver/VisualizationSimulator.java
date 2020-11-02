@@ -59,44 +59,25 @@ public class VisualizationSimulator {
    * Updates the simulation at each step.
    */
   public void update() {
-<<<<<<< HEAD
-    simulationTimeElapsed++;
-    System.out.println("~~~~The simulation time is now at time step "
-        + simulationTimeElapsed + "~~~~");
-    // Check if we need to generate new busses
-    for (int i = 0; i < timeSinceLastBus.size(); i++) {
-      // Check if we need to make a new bus
-      if (timeSinceLastBus.get(i) <= 0) {
-        Route outbound = prototypeRoutes.get(2 * i);
-        Route inbound = prototypeRoutes.get(2 * i + 1);
-        int busSize = (int) ((Math.random() * 2) + 1) * 30;
-        busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(), inbound.shallowCopy(),
-            busSize, 1));
-        busId++;
-        timeSinceLastBus.set(i, busStartTimings.get(i));
-        timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
-      } else {
-        timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
-=======
     if(simulationRunning) {
       simulationTimeElapsed++;
       System.out.println("~~~~The simulation time is now at time step "
-              + simulationTimeElapsed + "~~~~");
+          + simulationTimeElapsed + "~~~~");
       // Check if we need to generate new busses
       for (int i = 0; i < timeSinceLastBus.size(); i++) {
         // Check if we need to make a new bus
         if (timeSinceLastBus.get(i) <= 0) {
           Route outbound = prototypeRoutes.get(2 * i);
           Route inbound = prototypeRoutes.get(2 * i + 1);
-          busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(), inbound.shallowCopy(), 60,
-                  1));
+          int busSize = (int) ((Math.random() * 2) + 1) * 30;
+          busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(), inbound.shallowCopy(),
+              busSize, 1));
           busId++;
           timeSinceLastBus.set(i, busStartTimings.get(i));
           timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
         } else {
           timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
         }
->>>>>>> Feature2
       }
       // Update busses
       for (int i = busses.size() - 1; i >= 0; i--) {
