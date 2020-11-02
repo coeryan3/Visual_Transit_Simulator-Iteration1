@@ -92,4 +92,14 @@ public class VisualizationSimulator {
       prototypeRoutes.get(i).report(System.out);
     }
   }
+
+  /**
+   * Pauses/resumes the simulation.
+   *
+   *
+   */
+   public void pause() {
+
+
+   }
 }
