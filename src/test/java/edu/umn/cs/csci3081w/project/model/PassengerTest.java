@@ -43,6 +43,7 @@ public class PassengerTest {
     public void testPasUpdateOnBus(){
         Passenger passenger = new Passenger(1, "Goldy");
         passenger.getOnBus();
+        assertTrue(passenger.isOnBus());
         passenger.pasUpdate();
         assertEquals(2,passenger.getTotalWait());
     }
