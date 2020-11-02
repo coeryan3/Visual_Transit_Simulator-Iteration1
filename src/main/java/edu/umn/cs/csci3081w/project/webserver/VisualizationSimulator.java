@@ -79,19 +79,19 @@ public class VisualizationSimulator {
           timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
         }
       }
-      // Update busses
-       for (int i = busses.size() - 1; i >= 0; i--) {
-         busses.get(i).update();
-         if (busses.get(i).isTripComplete()) {
-           webInterface.updateBus(busses.get(i).getBusData(), true);
-           busses.remove(i);
-           continue;
-         }
-         webInterface.updateBus(busses.get(i).getBusData(), false);
-         busses.get(i).report(System.out);
-       }
-       // Update routes
-       for (int i = 0; i < prototypeRoutes.size(); i++) {
+        // Update busses
+        for (int i = busses.size() - 1; i >= 0; i--) {
+          busses.get(i).update();
+          if (busses.get(i).isTripComplete()) {
+            webInterface.updateBus(busses.get(i).getBusData(), true);
+            busses.remove(i);
+            continue;
+          }
+          webInterface.updateBus(busses.get(i).getBusData(), false);
+          busses.get(i).report(System.out);
+        }
+        // Update routes
+        for (int i = 0; i < prototypeRoutes.size(); i++) {
           prototypeRoutes.get(i).update();
           webInterface.updateRoute(prototypeRoutes.get(i).getRouteData(), false);
           prototypeRoutes.get(i).report(System.out);
