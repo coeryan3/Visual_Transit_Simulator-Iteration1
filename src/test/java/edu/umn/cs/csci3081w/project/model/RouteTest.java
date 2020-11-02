@@ -10,8 +10,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class RouteTest {
@@ -38,6 +38,9 @@ public class RouteTest {
     testRoute = new Route("testRoute", stops, distances, 3, generator);
   }
 
+  /**
+   * Reset the class variables to null after each test.
+   */
   @AfterEach
   public void tearDown() {
     stops = null;
@@ -46,6 +49,7 @@ public class RouteTest {
     generator = null;
     testRoute = null;
   }
+
   /**
    * Create a list of three stops to use when constructing Routes.
    */
@@ -326,7 +330,7 @@ public class RouteTest {
   public void testRouteUpdate() {
     testRoute.update();
     assertEquals(3, testRoute.getRouteData().getStops().size());
-    assertEquals("testRoute",testRoute.getRouteData().getId());
+    assertEquals("testRoute", testRoute.getRouteData().getId());
     assertEquals(String.valueOf(0), testRoute.getRouteData().getStops().get(0).getId());
     assertEquals(String.valueOf(1), testRoute.getRouteData().getStops().get(1).getId());
     assertEquals(String.valueOf(2), testRoute.getRouteData().getStops().get(2).getId());
