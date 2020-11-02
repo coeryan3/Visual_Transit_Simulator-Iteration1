@@ -12,23 +12,9 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class BusTest {
-  //**
-  // * Setup operations before each test runs.
-  // */
-  /*
-  @BeforeEach
-  public void setUp() {
-
-  }
-  @AfterEach
-  public void tearDown() {
-
-  }
-   */
 
   /**
    * Create a bus with outgoing and incoming routes and three stops per route.
@@ -136,5 +122,20 @@ public class BusTest {
     Bus bus = createBus();
     bus.update();
   }
+
+  /**
+   * Testing updateBus method.
+   */
+  @Test
+  public void testUpdateBus() {
+    Bus bus = createBus();
+    BusData busData = bus.getBusData();
+    bus.updateBusData();
+    assertEquals("TestBus", busData.getId());
+    assertEquals(busData.getPosition(), bus.getBusData().getPosition());
+    assertEquals(0, busData.getNumPassengers());
+    assertEquals(5, busData.getCapacity());
+  }
+
 
 }
