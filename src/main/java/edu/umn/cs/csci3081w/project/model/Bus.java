@@ -60,6 +60,11 @@ public class Bus {
     out.println("####Bus Info Start####");
   }
 
+  /**
+   * Determines if a bus has finished both its outgoing and incoming routes.
+   *
+   * @return If bus has completed both routes
+   */
   public boolean isTripComplete() {
     return outgoingRoute.isAtEnd() && incomingRoute.isAtEnd();
   }
@@ -105,6 +110,9 @@ public class Bus {
     return (speed > 0);
   }
 
+  /**
+   * Moves bus and updates bus data at once.
+   */
   public void update() {
     move();
     updateBusData();
@@ -174,6 +182,11 @@ public class Bus {
     return incomingRoute;
   }
 
+  /**
+   * Unloads passengers from bus.
+   *
+   * @return Number of passengers unloaded
+   */
   private int unloadPassengers() {
     return unloader.unloadPassengers(passengers, nextStop);
   }

@@ -10,6 +10,12 @@ public class RandomPassengerGenerator extends PassengerGenerator {
   //deterministic probability value for testing
   public static final double DETERMINISTIC_VALUE = 0.1;
 
+  /**
+   * Constructor for a random passenger generator.
+   *
+   * @param l list of probabilities
+   * @param randStops list of stops
+   */
   public RandomPassengerGenerator(List<Double> l, List<Stop> randStops) {
     super(l, randStops);
   }

@@ -122,6 +122,11 @@ public class Route {
     out.println("####Route Info End####");
   }
 
+  /**
+   * Determines if route has reached the final stop.
+   *
+   * @return if at end of route
+   */
   public boolean isAtEnd() {
     return destinationStopIndex >= numStops;
   }

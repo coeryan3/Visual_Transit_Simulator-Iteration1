@@ -44,6 +44,11 @@ public class Passenger {
     return waitAtStop + timeOnBus;
   }
 
+  /**
+   * Determines if passenger is on bus.
+   *
+   * @return if passenger is on bus
+   */
   public boolean isOnBus() {
     return timeOnBus > 0;
   }
