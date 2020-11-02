@@ -38,16 +38,17 @@ public class PassengerTest {
     assertEquals(false, passenger.isOnBus());
   }
 
-  /**
-   * Testing if time on the bus increases.
-   */
-  @Test
-  public void testPasUpdateOnBus() {
-    Passenger passenger = new Passenger(1, "Goldy");
-    passenger.getOnBus();
-    passenger.pasUpdate();
-    assertEquals(2, passenger.getTotalWait());
-  }
+    /**
+     * Testing if time on the bus increases.
+     */
+    @Test
+    public void testPasUpdateOnBus(){
+        Passenger passenger = new Passenger(1, "Goldy");
+        passenger.getOnBus();
+        assertTrue(passenger.isOnBus());
+        passenger.pasUpdate();
+        assertEquals(2,passenger.getTotalWait());
+    }
 
   /**
    * Testing if time at stop increases.
