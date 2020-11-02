@@ -94,7 +94,7 @@ public class Bus {
     if (!isTripComplete() && distanceRemaining <= 0) {
       //load & unload
       int passengersHandled = handleBusStop();
-      if (passengersHandled >= 0) {
+      if (passengersHandled > 0) {
         // if we spent time unloading/loading
         // we don't get to count excess distance towards next stop
         distanceRemaining = 0;
