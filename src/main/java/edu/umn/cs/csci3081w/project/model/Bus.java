@@ -64,8 +64,18 @@ public class Bus {
     return outgoingRoute.isAtEnd() && incomingRoute.isAtEnd();
   }
 
+  /**
+   * Loads a passenger onto the bus.
+   *
+   * @param newPassenger passenger to be loaded onto the bus.
+   * @return 1 if successful, 0 otherwise.
+   */
   public int loadPassenger(Passenger newPassenger) {
-    return loader.loadPassenger(newPassenger, passengerMaxCapacity, passengers);
+    if (loader.loadPassenger(newPassenger, passengerMaxCapacity, passengers)) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 
   /**
@@ -188,7 +198,7 @@ public class Bus {
 
   private void toNextStop() {
     //current stop
-    currentRoute().nextStop();
+    currentRoute().toNextStop();
     if (!isTripComplete()) {
       // it's important we call currentRoute() again,
       // as nextStop() may have caused it to change.
