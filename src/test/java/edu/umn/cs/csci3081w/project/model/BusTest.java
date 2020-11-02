@@ -99,7 +99,7 @@ public class BusTest {
   }
 
   /**
-   * Testing isTripComplete method.
+   * Testing isTripComplete method return value.
    */
   @Test
   public void testIsTripComplete() {
