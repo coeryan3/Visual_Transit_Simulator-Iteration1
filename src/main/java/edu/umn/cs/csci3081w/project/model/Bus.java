@@ -94,7 +94,7 @@ public class Bus {
     if (!isTripComplete() && distanceRemaining <= 0) {
       //load & unload
       int passengersHandled = handleBusStop();
-      if (passengersHandled >= 0) {
+      if (passengersHandled > 0) {
         // if we spent time unloading/loading
         // we don't get to count excess distance towards next stop
         distanceRemaining = 0;
@@ -203,6 +203,9 @@ public class Bus {
       // it's important we call currentRoute() again,
       // as nextStop() may have caused it to change.
       nextStop = currentRoute().getDestinationStop();
+
+
+
       distanceRemaining +=
           currentRoute().getNextStopDistance();
       // note, if distanceRemaining was negative because we
