@@ -22,5 +22,4 @@ public class UpdateCommand extends MyWebServerCommand {
                       MyWebServerSessionState state) {
     mySim.update();
   }
-
 }

@@ -16,6 +16,7 @@ public class VisualizationSimulator {
   private List<Route> prototypeRoutes;
   private List<Bus> busses;
   private int busId = 1000;
+  private boolean simulationRunning = true;
 
   /**
    * Constructor for Simulation.
@@ -56,50 +57,58 @@ public class VisualizationSimulator {
    * Updates the simulation at each step.
    */
   public void update() {
-    simulationTimeElapsed++;
-    System.out.println("~~~~The simulation time is now at time step "
-        + simulationTimeElapsed + "~~~~");
-    // Check if we need to generate new busses
-    for (int i = 0; i < timeSinceLastBus.size(); i++) {
-      // Check if we need to make a new bus
-      if (timeSinceLastBus.get(i) <= 0) {
-        Route outbound = prototypeRoutes.get(2 * i);
-        Route inbound = prototypeRoutes.get(2 * i + 1);
-        busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(), inbound.shallowCopy(), 60,
-            1));
-        busId++;
-        timeSinceLastBus.set(i, busStartTimings.get(i));
-        timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
-      } else {
-        timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
+    if(simulationRunning) {
+      simulationTimeElapsed++;
+      System.out.println("~~~~The simulation time is now at time step "
+              + simulationTimeElapsed + "~~~~");
+      // Check if we need to generate new busses
+      for (int i = 0; i < timeSinceLastBus.size(); i++) {
+        // Check if we need to make a new bus
+        if (timeSinceLastBus.get(i) <= 0) {
+          Route outbound = prototypeRoutes.get(2 * i);
+          Route inbound = prototypeRoutes.get(2 * i + 1);
+          busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(), inbound.shallowCopy(), 60,
+                  1));
+          busId++;
+          timeSinceLastBus.set(i, busStartTimings.get(i));
+          timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
+        } else {
+          timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
+        }
       }
-    }
-    // Update busses
-    for (int i = busses.size() - 1; i >= 0; i--) {
-      busses.get(i).update();
-      if (busses.get(i).isTripComplete()) {
-        webInterface.updateBus(busses.get(i).getBusData(), true);
-        busses.remove(i);
-        continue;
+      // Update busses
+      for (int i = busses.size() - 1; i >= 0; i--) {
+        busses.get(i).update();
+        if (busses.get(i).isTripComplete()) {
+          webInterface.updateBus(busses.get(i).getBusData(), true);
+          busses.remove(i);
+          continue;
+        }
+        webInterface.updateBus(busses.get(i).getBusData(), false);
+        busses.get(i).report(System.out);
       }
-      webInterface.updateBus(busses.get(i).getBusData(), false);
-      busses.get(i).report(System.out);
-    }
-    // Update routes
-    for (int i = 0; i < prototypeRoutes.size(); i++) {
-      prototypeRoutes.get(i).update();
-      webInterface.updateRoute(prototypeRoutes.get(i).getRouteData(), false);
-      prototypeRoutes.get(i).report(System.out);
+      // Update routes
+      for (int i = 0; i < prototypeRoutes.size(); i++) {
+        prototypeRoutes.get(i).update();
+        webInterface.updateRoute(prototypeRoutes.get(i).getRouteData(), false);
+        prototypeRoutes.get(i).report(System.out);
+      }
     }
   }
 
   /**
-   * Pauses/resumes the simulation.
+   * Pauses the simulation from running.
    *
    *
    */
    public void pause() {
+     simulationRunning = false;
+   }
 
-
+  /**
+   * Resumes the simulation after being paused.
+   */
+   public void resume() {
+     simulationRunning = true;
    }
 }
