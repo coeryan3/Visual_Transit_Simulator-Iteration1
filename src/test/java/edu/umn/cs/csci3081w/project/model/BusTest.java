@@ -134,7 +134,8 @@ public class BusTest {
     assertEquals("TestBus", busData.getId());
     assertEquals(busData.getPosition(), bus.getBusData().getPosition());
     assertEquals(0, busData.getNumPassengers());
-    assertEquals(5, busData.getNumPassengers());
+    assertEquals(5, busData.getCapacity());
   }
+
 
 }
