@@ -203,9 +203,6 @@ public class Bus {
       // it's important we call currentRoute() again,
       // as nextStop() may have caused it to change.
       nextStop = currentRoute().getDestinationStop();
-
-
-
       distanceRemaining +=
           currentRoute().getNextStopDistance();
       // note, if distanceRemaining was negative because we
